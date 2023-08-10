@@ -1,30 +1,51 @@
 import './style.css';
-import { Shape } from './shape';
+import { Circle, Rectangle, Shape, Triangle } from './shape';
+
+const drawRectangleToContext = function (
+  context: CanvasRenderingContext2D,
+  rectangle: Rectangle
+): void {
+  context.fillStyle = 'rgba(200, 0, 0, 0.3)';
+  context.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+};
+
+const drawTriangleToContext = function (
+  context: CanvasRenderingContext2D,
+  triangle: Triangle
+): void {
+  context.fillStyle = 'rgba(0, 200, 0, 0.3)';
+  context.beginPath();
+  context.moveTo(triangle.point1.x, triangle.point1.y);
+  context.lineTo(triangle.point2.x, triangle.point2.y);
+  context.lineTo(triangle.point3.x, triangle.point3.y);
+  context.fill();
+};
+
+const drawCircleToContext = function (
+  context: CanvasRenderingContext2D,
+  circle: Circle
+): void {
+  context.fillStyle = 'rgba(0, 0, 200, 0.3)';
+  context.beginPath();
+  context.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
+  context.fill();
+};
 
 const drawShape = function (shape: Shape): void {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement;
   if (!canvas.getContext) {
     throw new Error('The element is not a canvas.');
   }
-  const ctx = canvas.getContext('2d');
+  const context = canvas.getContext('2d');
   switch (shape.name) {
     case 'rectangle':
-      ctx.fillStyle = 'rgba(200, 0, 0, 0.3)';
-      ctx.fillRect(shape.x, shape.y, shape.width, shape.height);
+      drawRectangleToContext(context, shape);
       break;
     case 'triangle':
-      ctx.fillStyle = 'rgba(0, 200, 0, 0.3)';
-      ctx.beginPath();
-      ctx.moveTo(shape.point1.x, shape.point1.y);
-      ctx.lineTo(shape.point2.x, shape.point2.y);
-      ctx.lineTo(shape.point3.x, shape.point3.y);
-      ctx.fill();
+      drawTriangleToContext(context, shape);
       break;
     case 'circle':
-      ctx.fillStyle = 'rgba(0, 0, 200, 0.3)';
-      ctx.beginPath();
-      ctx.arc(shape.x, shape.y, shape.radius, 0, 2 * Math.PI);
-      ctx.fill();
+      drawCircleToContext(context, shape);
       break;
   }
 };
