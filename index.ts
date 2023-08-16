@@ -59,14 +59,14 @@ document
 document.getElementById('draw-triangle').addEventListener('click', () =>
   drawShape({
     name: 'triangle',
-    point1: { x: 20, y: 20 },
-    point2: { x: 80, y: 20 },
-    point3: { x: 50, y: 35 },
+    point1: { x: 20, y: 40 },
+    point2: { x: 180, y: 40 },
+    point3: { x: 100, y: 80 },
   })
 );
 
 document
   .getElementById('draw-circle')
   .addEventListener('click', () =>
-    drawShape({ name: 'circle', x: 150, y: 80, radius: 50 })
+    drawShape({ name: 'circle', x: 150, y: 100, radius: 50 })
   );
