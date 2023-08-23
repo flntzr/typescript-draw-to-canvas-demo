@@ -1,16 +1,16 @@
 import { Circle, Rectangle, Triangle } from './shape';
 
-class ListStorage<V> {
+class ListStorage<T> {
   public constructor(private key: string) {}
 
-  public get(): ReadonlyArray<V> {
+  public get(): ReadonlyArray<T> {
     const stringValue = sessionStorage.getItem(this.key);
-    return (JSON.parse(stringValue) || []) as V[];
+    return (JSON.parse(stringValue) || []) as T[];
   }
 
-  public save(value: V): void {
-    const oldValueList = this.get();
-    sessionStorage.setItem(this.key, JSON.stringify([...oldValueList, value]));
+  public save(value: T): void {
+    const oldValues = this.get();
+    sessionStorage.setItem(this.key, JSON.stringify([...oldValues, value]));
   }
 
   public count(): number {
