@@ -1,5 +1,10 @@
 import './style.css';
 import { Circle, Rectangle, Shape, Triangle } from './shape';
+import {
+  circleStorage,
+  rectangleStorage,
+  triangleStorage,
+} from './list-storage';
 
 const drawRectangleToContext = function (
   context: CanvasRenderingContext2D,
@@ -31,6 +36,11 @@ const drawCircleToContext = function (
   context.fill();
 };
 
+const logShapes = function (): void {
+  const targetElement = document.getElementById('shape-log');
+  targetElement.innerText = `${rectangleStorage.count()} rectangles, ${triangleStorage.count()} triangles and ${circleStorage.count()} circles.`;
+};
+
 const drawShape = function (shape: Shape): void {
   const canvas = document.getElementById('canvas') as HTMLCanvasElement;
   if (!canvas.getContext) {
@@ -40,14 +50,18 @@ const drawShape = function (shape: Shape): void {
   switch (shape.name) {
     case 'rectangle':
       drawRectangleToContext(context, shape);
+      rectangleStorage.save(shape);
       break;
     case 'triangle':
       drawTriangleToContext(context, shape);
+      triangleStorage.save(shape);
       break;
     case 'circle':
       drawCircleToContext(context, shape);
+      circleStorage.save(shape);
       break;
   }
+  logShapes();
 };
 
 document
@@ -70,3 +84,5 @@ document
   .addEventListener('click', () =>
     drawShape({ name: 'circle', x: 150, y: 100, radius: 50 })
   );
+
+logShapes();
