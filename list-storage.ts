@@ -3,9 +3,9 @@ import { Circle, Rectangle, Triangle } from './shape';
 class ListStorage<T> {
   public constructor(private key: string) {}
 
-  public get(): ReadonlyArray<T> {
+  public get(): T[] {
     const stringValue = sessionStorage.getItem(this.key);
-    return (JSON.parse(stringValue) || []) as T[];
+    return stringValue ? (JSON.parse(stringValue) as T[]) : [];
   }
 
   public save(value: T): void {

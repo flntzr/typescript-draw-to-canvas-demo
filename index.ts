@@ -38,6 +38,9 @@ const drawCircleToContext = function (
 
 const logShapes = function (): void {
   const targetElement = document.getElementById('shape-log');
+  if (targetElement === null) {
+    return;
+  }
   targetElement.innerText = `${rectangleStorage.count()} rectangles, ${triangleStorage.count()} triangles and ${circleStorage.count()} circles.`;
 };
 
@@ -47,6 +50,9 @@ const drawShape = function (shape: Shape): void {
     throw new Error('The element is not a canvas.');
   }
   const context = canvas.getContext('2d');
+  if (context === null) {
+    return;
+  }
   switch (shape.name) {
     case 'rectangle':
       drawRectangleToContext(context, shape);
@@ -66,11 +72,11 @@ const drawShape = function (shape: Shape): void {
 
 document
   .getElementById('draw-rectangle')
-  .addEventListener('click', () =>
+  ?.addEventListener('click', () =>
     drawShape({ name: 'rectangle', x: 50, y: 140, width: 150, height: 80 })
   );
 
-document.getElementById('draw-triangle').addEventListener('click', () =>
+document.getElementById('draw-triangle')?.addEventListener('click', () =>
   drawShape({
     name: 'triangle',
     point1: { x: 20, y: 40 },
@@ -81,7 +87,7 @@ document.getElementById('draw-triangle').addEventListener('click', () =>
 
 document
   .getElementById('draw-circle')
-  .addEventListener('click', () =>
+  ?.addEventListener('click', () =>
     drawShape({ name: 'circle', x: 150, y: 100, radius: 50 })
   );
 
